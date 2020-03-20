@@ -1,20 +1,20 @@
 <?php
     session_start();
     require_once 'connection.php';
-    $stmt_ina = $conn->prepare("SELECT * FROM hospitalnotice");
+    $stmt_ina = $conn->prepare("SELECT * FROM abuaditNotice");
     $stmt_ina->execute(array());
     $affected_rows_ina = $stmt_ina->rowCount();
     $current_page = !empty($_GET['page']) ? (int)$_GET['page'] : 1;
     $total_count = $affected_rows_ina;
-    $per_page = 1;//26
+    $per_page = 4;//26
     $total_pages = ceil($total_count/$per_page);
     $offset = ($current_page - 1) * $per_page;
     $previous_page = $current_page - 1;	
     $next_page = $current_page + 1;
     $has_previous_page =  $previous_page >= 1 ? true : false;
     $has_next_page = $next_page <= $total_pages ? true : false;
-    $stmt_in = $conn->prepare("SELECT * FROM hospitalnotice INNER JOIN hospitaldocsinfo ON
-    hospitalnotice.byId = hospitaldocsinfo.docId  Where delStatus=0 ORDER BY hospitalnotice.noticeDate, hospitalnotice.id DESC Limit {$per_page} OFFSET {$offset}");
+    $stmt_in = $conn->prepare("SELECT * FROM abuaditNotice INNER JOIN abuadlecturer ON
+    abuaditNotice.byId = abuadlecturer.staffid  Where delStatus=0 ORDER BY abuaditNotice.noticeDate, abuaditNotice.id DESC Limit {$per_page} OFFSET {$offset}");
     $stmt_in->execute();
     $affected_rows_in = $stmt_in->rowCount();
 ?>
@@ -29,7 +29,7 @@
             <div class="row">
                 <div class="content col-xs-12">
                     <div class="col-xs-12 col-md-12">
-                        <h3>EXISTING PREGNANCY ARTICLES</h3>
+                        <h3>EXISTING ARTICLES / LATEST NEWS</h3>
                         <hr/>
                         <?php 
                                 if($affected_rows_in >= 1)
@@ -41,7 +41,7 @@
                                        echo '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
                                        <h3 style="color:black;">Title : <strong>'.$row_two_in['title'].'</strong></h3>
                                        <p style="color:red;">'.$date_two.'</p>
-                                       <p style="color:black;"> Posted By :'.$row_two_in['docname'].'</p>
+                                       <p style="color:black;"> Posted By :'.$row_two_in['fullname'].'</p>
                                        <p style="color:black;">'.substr($row_two_in['NoticeDescription'],0,350).'... 
                                                <a class="btn btn-danger" href="" ><i class="glyphicon glyphicon-remove"></i></a>
                                                <a class="btn btn-primary" href=""><i class="glyphicon glyphicon-open"></i></a>

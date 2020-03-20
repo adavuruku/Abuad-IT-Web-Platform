@@ -1,11 +1,11 @@
 <?php
     session_start();
     require_once 'connection.php';
-    if (!isset($_GET['hospitalid']) || $_GET['hospitalid'] == ""){
+    if (!isset($_GET['abuaditid']) || $_GET['abuaditid'] == ""){
         header("location: ?out=out");
     }
-    $_SESSION['currentUser'] = $_GET['hospitalid'];
-    $stmt_in = $conn->prepare("SELECT * FROM users where HID = ? limit 1 ");
+    $_SESSION['currentUser'] = $_GET['abuaditid'];
+    $stmt_in = $conn->prepare("SELECT * FROM abuadstudent where regno = ? limit 1 ");
     $stmt_in->execute(array($_SESSION['currentUser']));
     $affected_rows_in = $stmt_in->rowCount();
     if($affected_rows_in < 1){
@@ -27,7 +27,7 @@
                             <?php require_once 'nav_left_staff.php'?>
                         </div>
                         <div class="col-xs-12 col-md-8">
-                            <h3 style="margin-bottom:20px;font-weight:bolder">PATIENT ACCOUNT HOME</h3>
+                            <h3 style="margin-bottom:20px;font-weight:bolder">ITF STUDENT ACCOUNT HOME</h3>
                             <?php 
                                 while($row_two_in = $stmt_in->fetch(PDO::FETCH_ASSOC))
                                 {
@@ -35,20 +35,60 @@
 
                                             <tr >
                                                 <td><h3>Name</h3></td>
-                                                <td><h3>'.$row_two_in['patientName'].'<h3></td>
+                                                <td><h3>'.$row_two_in['fullname'].'<h3></td>
                                             </tr>
                                             <tr>
                                                 <td><h3>Phone / Email</h3></td>
-                                                <td><h3>'.$row_two_in['patientPhone'].' / '.$row_two_in['patientEmail'].'</h3></td>
+                                                <td><h3>'.$row_two_in['phone'].' / '.$row_two_in['email'].'</h3></td>
+                                            </tr>
+                                            <tr>
+                                                <td><h3>Abuad Info</td>
+                                                <td><h3>'.$row_two_in['faculty'].' / '.$row_two_in['department'].' / '.$row_two_in['itLevel'].'</h3></td>
                                             </tr>
                                             <tr>
                                                 <td><h3>Contact Add</h3></td>
-                                                <td><h3>'.$row_two_in['contactAddress'].' - '.$row_two_in['patientState'].' / '.$row_two_in['patientLocalGovt'].'</h3></td>
+                                                <td><h3>'.$row_two_in['itState'].' - '.$row_two_in['itLgov'].' / '.$row_two_in['contactAddress'].'</h3></td>
                                             </tr>
                                             <tr>
-                                                <td><h3>Office Address</td>
-                                                <td><h3>'.$row_two_in['officeAddress'].'</h3></td>
+                                                <td><h3 style="color:red">Start / End Date / Duration </h3></td>
+                                                <td><h3></h3></td>
                                             </tr>
+                                            
+                                            <tr>
+                                                <td colspan="2"><h3 style="color:red">Company / IT Placement Information</h3></td>
+                                            </tr>
+                                            <tr>
+                                                <td ><h3>IT Placement Information</h3></td>
+                                                <td ><h3></h3></td>
+                                            </tr>
+                                            <tr>
+                                                <td ><h3>Address Information</h3></td>
+                                                <td ><h3></h3></td>
+                                            </tr>
+                                            <tr>
+                                                <td ><h3>State / Local Government </h3></td>
+                                                <td ><h3></h3></td>
+                                            </tr>
+                                            <tr>
+                                                <td ><h3>Phone / Email </h3></td>
+                                                <td ><h3></h3></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2"><h3 style="color:red">University Base Supervisor Information</h3></td>
+                                            </tr>
+                                            <tr>
+                                                <td ><h3>Name </h3></td>
+                                                <td ><h3></h3></td>
+                                            </tr>
+                                            <tr>
+                                                <td ><h3>Faculty / Department </h3></td>
+                                                <td ><h3></h3></td>
+                                            </tr>
+                                            <tr>
+                                                <td ><h3>Email / Phone N<u>o</u></h3></td>
+                                                <td ><h3></h3></td>
+                                            </tr>
+
                                         </table>';
                                 }
                             ?>

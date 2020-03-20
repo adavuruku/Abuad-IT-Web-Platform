@@ -1,36 +1,9 @@
 
-<?php
-session_start();
-require_once 'connection.php';
-$txtreg =$txtemail=$errPL="";
-if($_SERVER['REQUEST_METHOD'] == "POST")
-{
-	$txtemail =trim($_POST['txtemail']); 
-	$txtreg =trim($_POST['txtreg']);
-	if($txtemail!="" && $txtreg!=""){
-		$stmt_in = $conn->prepare("SELECT * FROM hospitaldocsinfo where docId=? and email=? Limit 1");
-		$stmt_in->execute(array($txtreg,$txtemail));
-		$affected_rows_in = $stmt_in->rowCount();
-		if($affected_rows_in < 1) 
-		{	
-			$errPL="Error: The RegNo or Password does not exist . Contact ICT !!!";
-		}else{
-			//check if application form is filled
-				$row_two = $stmt_in->fetch(PDO::FETCH_ASSOC);
-				$_SESSION['docID'] = $row_two['docId'];
-				$_SESSION['logName'] = $row_two['docname'];
-				header("location: adminHome.php");
-				
-			}
-	}else{
-		$errPL="Error: Empty or Invalid Data's Provided !!!";
-	}									
-}
-?>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
     <?php include 'header.php'?>
-    <link rel="stylesheet" type="text/css" href="css/mystyle.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
     <body>
     <script type="text/javascript">
         $(document).ready(function(){
@@ -61,38 +34,53 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     </div>
 </div>
         <nav role="navigation"  class="navbar  navbar-fixed-top navbar-inverse">
-            <h2 style="text-align: center;color:white">ANTENANTAL INFORMATION MANAGEMENT SYSTEM</h2>
+            <h2 style="text-align: center;color:white">ABUAD INDUSTRIAL TRAINNING (IT) PLATFORM</h2>
         </nav>
         <div class="container">
-            <div class="login">
-                    <h2 style="margin-bottom:20px;padding:10px;text-align:center">Please Login - Staff</h2>
-                    <hr/>
-                    <form role="form"  name="reg_form"  id="form" class="form-vertical" action="" enctype="multipart/form-data" method="POST">
-                            
-                            <div class="form-group">
-                                <label for="txtreg">Hospital ID N<u>o</u> : </label>
-                                <div class="input-group">
-                                   
-                                    <input type="text" class="form-control" id="txtreg" name="txtreg" value="" required="true" placeholder="Enter Matriculation / Registration No"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="txtemail">Email ADD: </label>
-                                <div class="input-group">
-                                    
-                                    <input type="email" class="form-control" id="txtemail" name="txtemail" required="true" placeholder="Enter Email ID"/>
-                                </div>
-                                <span class="help-block" id="result4" style="color:brown;text-align:center;"></span>
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <input type="submit" name="proceed" style="margin-bottom:10px;padding:5px 20px 5px 20px" value="Continue" class="btn btn-primary btn-md"></input>
-                                    <?php echo  $errPL; ?>
-                                </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                    <div class="panel price panel-red" style="color: #333;background-color: #f9f9f9;border-color: #ccc;
+    border-bottom: 1px solid #ccc;text-shadow: 0px 2px 0px rgba(250, 250, 250, .7);">
+                        <div class="panel-heading  text-center" style="color:#fff;background-color: #608BB4;">
+                            <h3>REGISTER FOR IT</h3>
                         </div>
-                    </form>
+                        <div class="panel-body text-center" style="color: #fff;background-color: #dfdfdf;">
+                            <p class="lead" style="font-size:40px"><strong>To Register For Industrial Trainning Programme</strong></p>
+                        </div>
+                        <div class="panel-footer">
+                            <a class="btn btn-lg btn-block btn-danger" href="newITStudent.php">Click To Register</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                    <div class="panel price panel-red" style="color: #333;background-color: #f9f9f9;border-color: #ccc;
+    border-bottom: 1px solid #ccc;text-shadow: 0px 2px 0px rgba(250, 250, 250, .7);">
+                        <div class="panel-heading  text-center" style="background-color: #65C965;">
+                            <h3>CREATE COMPANY / ORGANIZATION ACCOUNT</h3>
+                        </div>
+                        <div class="panel-body text-center" style="color: #fff;background-color: #dfdfdf;">
+                            <p class="lead" style="font-size:40px"><strong>To Create Industry / Organisation To Host ITF Students</strong></p>
+                        </div>
+                        <div class="panel-footer">
+                            <a class="btn btn-lg btn-block btn-danger" href="newITCompany.php">Click To Register</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                    <div class="panel price panel-red" style="color: #333;background-color: #f9f9f9;border-color: #ccc;
+    border-bottom: 1px solid #ccc;text-shadow: 0px 2px 0px rgba(250, 250, 250, .7);">
+                        <div class="panel-heading  text-center" style="background-color: #73A3D4;">
+                            <h3> LOGIN TO DASHBOARD</h3>
+                        </div>
+                        <div class="panel-body text-center" style="color: #fff;background-color: #dfdfdf;">
+                            <p class="lead" style="font-size:40px"><strong>To acces Your DashBoard and Use More Tools </strong></p>
+                        </div>
+                        <div class="panel-footer">
+                            <a class="btn btn-lg btn-block btn-danger" href="loginPage.php">Click To Login</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
         </div>
         <?php require_once 'footer.php'?>
     </body>

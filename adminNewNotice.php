@@ -17,11 +17,11 @@
                            </button>'.$errPL.' </div>';
             }else{
                     //generate the staff id
-                    $sth = $conn->prepare("REPLACE INTO hospitalnotice (NoticeDescription, delStatus, title,byId,noticeDate) VALUES (?,?,?,?,now())");
+                    $sth = $conn->prepare("REPLACE INTO abuaditNotice (NoticeDescription, delStatus, title,byId,noticeDate) VALUES (?,?,?,?,now())");
                     $sth->bindValue (1, $txtdescription);
                     $sth->bindValue (2, "0");
                     $sth->bindValue (3, $txttitle);
-                    $sth->bindValue (4, $_SESSION['logName']);
+                    $sth->bindValue (4, $_SESSION['staffid']);
                     if($sth->execute()){
                         $err = $errPL = "Success: New Notice Created and Saved Successfully!!";
                                 $notice_msg='<div class="alert alert-success alert-dismissable">
@@ -61,11 +61,11 @@
                                 <hr/>
                                 <div class="form-group">
                                     <label for="txttitle">Notice Title: </label>
-                                    <textarea rows="4" style="padding: 30px;font-size: 24px;width: 100%;" colunms="12" class="form-control" id="txttitle" name="txttitle" required="true" placeholder="Enter Notice Title"></textarea>
+                                    <textarea rows="4" style="padding: 15px;font-size: 14px;width: 100%;" colunms="12" class="form-control" id="txttitle" name="txttitle" required="true" placeholder="Enter Notice Title"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="txtdescription">Notice Description: </label>
-                                    <textarea rows="11" colunms="25" class="form-control" style="padding: 30px;font-size: 24px;width: 100%;" id="txtdescription" name="txtdescription" required="true" placeholder="Enter Notice Description"></textarea>
+                                    <textarea rows="11" colunms="25" class="form-control" style="padding: 15px;font-size: 14px;width: 100%;" id="txtdescription" name="txtdescription" required="true" placeholder="Enter Notice Description"></textarea>
                                     
                                 </div>
                                 <div class="form-group">

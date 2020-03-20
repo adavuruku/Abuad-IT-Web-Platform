@@ -3,14 +3,14 @@
     require_once 'connection.php';
     $txtSearch = "";
     if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['txtSearch'])){
-        $stmt_in = $conn->prepare("SELECT * FROM hospitaldocsinfo where docname like ? or phone like ? or email like ?
-        or docId like ?  ORDER BY doctype, id DESC ");
+        $stmt_in = $conn->prepare("SELECT * FROM abuadlecturer where fullname like ? or phone like ? or email like ?
+        or staffid like ?  ORDER BY stafftype, id DESC ");
         $txtSearch = trim($_POST['txtSearch']);
         $search = "%".$txtSearch."%";
         $stmt_in->execute(array($search,$search,$search,$search));
         $affected_rows_in = $stmt_in->rowCount();
     }else{
-        $stmt_ina = $conn->prepare("SELECT * FROM hospitaldocsinfo");
+        $stmt_ina = $conn->prepare("SELECT * FROM abuadlecturer");
         $stmt_ina->execute(array());
         $affected_rows_ina = $stmt_ina->rowCount();
         $current_page = !empty($_GET['page']) ? (int)$_GET['page'] : 1;
@@ -22,7 +22,7 @@
         $next_page = $current_page + 1;
         $has_previous_page =  $previous_page >= 1 ? true : false;
         $has_next_page = $next_page <= $total_pages ? true : false;
-        $stmt_in = $conn->prepare("SELECT * FROM hospitaldocsinfo ORDER BY doctype, id DESC Limit {$per_page} OFFSET {$offset}");
+        $stmt_in = $conn->prepare("SELECT * FROM abuadlecturer ORDER BY stafftype, id DESC Limit {$per_page} OFFSET {$offset}");
         $stmt_in->execute();
         $affected_rows_in = $stmt_in->rowCount();
     }
@@ -42,23 +42,23 @@
                     <form role="form" class="form-horizontal" action="" enctype="multipart/form-data" method="POST">
                         <div class="form-group">
                             <div class="col-xs-6">
-                                    <input type="text" value="<?php echo $txtSearch ?>" name="txtSearch" placeholder="Enter Hospital ID / Part Or Full Name / Phone / Email To Search" class="form-control">
+                                    <input type="text" value="<?php echo $txtSearch ?>" name="txtSearch" placeholder="Enter Staff ID / Part Or Full Name / Phone / Email To Search" class="form-control">
                             </div>
                             <div class="col-xs-6">
-                                <input class="btn btn-primary"  style="width:10%;margin-bottom:10px;padding:20px 20px 20px 20px;" name="search" type="submit" Value="Search"></input>
+                                <input class="btn btn-primary"   name="search" style="width:15%;margin-bottom:10px;padding:5px 5px 5px 5px;" type="submit" Value="Search" />
                             </div>
                         </div>
                     </form>
                     <hr/>
                     <table class="table table-responsive table-stripped">
-                        <thead style="background-color:grey">
+                        <thead style="background-color:grey;color:white">
                             <tr >
                                 <td>#</td>
-                                <td>Hospital ID</td>
+                                <td>Staff ID</td>
                                 <td>Name</td>
                                 <td>Phone / Email</td>
-                                <td>Type</td>
                                 <td>Contact Address</td>
+                                <td>Type</td>
                                 <td>Action</td>
                             </tr>
                         </thead>
@@ -70,14 +70,15 @@
                                     while($row_two_in = $stmt_in->fetch(PDO::FETCH_ASSOC))
                                     {
                                        $r+=1;
+                                       $type = $row_two_in['stafftype'] ==1? "Admin" : "Supervisor" ;
                                        echo '
                                        <tr>
                                             <td>'.$r.'</td>
-                                            <td>'.$row_two_in['docId'].'</td>
-                                            <td>'.$row_two_in['docname'].'</td>
+                                            <td>'.$row_two_in['staffid'].'</td>
+                                            <td>'.$row_two_in['fullname'].'</td>
                                             <td>'.$row_two_in['phone'].' / '.$row_two_in['email'].'</td>
-                                            <td>'.$row_two_in['doctype'].'</td>
-                                            <td>'.$row_two_in['contactAdd'].'</td>
+                                            <td>'.$row_two_in['staffaddress'].'</td>
+                                            <td>'.$type.'</td>
                                             <td><a class="btn btn-danger" href="" ><i class="glyphicon glyphicon-remove"></i></td>
                                         </tr>
                                        ';

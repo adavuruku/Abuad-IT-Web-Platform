@@ -9,24 +9,16 @@
 		<div id="collapseOne" class="panel-collapse collapse in">
 			<div class="panel-body">
 				<div class="list-group">
-					<a style="color:blue;" class="list-group-item" href="useraccountprofile.php?hospitalid=<?php echo $_SESSION['currentUser'];?>" >
+					<a style="color:blue;" class="list-group-item" href="useraccountprofile.php?abuaditid=<?php echo $_SESSION['currentUser'];?>" >
 						<span class="glyphicon glyphicon-home"></span> View Profile <span class="glyphicon glyphicon-circle-arrow-right pull-right"></span>
 					</a>
-					<a style="color:black;" class="list-group-item" href="addContactInfo.php" >
-						<span class="glyphicon glyphicon-phone"></span> Add Contact Information <span class="glyphicon glyphicon-circle-arrow-right pull-right"></span>
-					</a>
-					<a style="color:black;" class="list-group-item"  href="assignDoctorNurse.php">
-						<span class="glyphicon glyphicon-plus"></span> Assign Doctors / Nurses' <span class="glyphicon glyphicon-circle-arrow-right pull-right"></span>
-					</a>
-					<a style="color:red;" class="list-group-item" href="createOrViewAppointments.php" >
-						<span class="glyphicon glyphicon-plus"></span> Create / View Appointments <span style="color:red"></span><span class="glyphicon glyphicon-circle-arrow-right pull-right"></span>
-					</a>
-					<a style="color:black;" class="list-group-item" href="finance_information.php">
-						<span class="glyphicon glyphicon-book"></span> Pregnancy Information <span class="glyphicon glyphicon-circle-arrow-right pull-right"></span>
+					<a style="color:black;" class="list-group-item" href="adminHome.php" >
+						<span class="glyphicon glyphicon-phone"></span> Admin Home <span class="glyphicon glyphicon-circle-arrow-right pull-right"></span>
 					</a>
 					
-					
-					
+					<a style="color:red;" class="list-group-item" href="updateITFRecord.php" >
+						<span class="glyphicon glyphicon-plus"></span> Update ITF Information <span style="color:red"></span><span class="glyphicon glyphicon-circle-arrow-right pull-right"></span>
+					</a>
 				</div>
 			</div>
 		</div>
